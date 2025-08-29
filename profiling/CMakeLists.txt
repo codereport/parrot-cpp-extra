@@ -121,41 +121,46 @@ set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} --extended-lambda")
 include_directories(/home/cph/parrot-cpp)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 
-# Function to create CUDA executable with proper settings
+# Function to create CUDA executable with proper settings and output directory
 function(add_cuda_executable target_name source_file)
     add_executable(${target_name} ${source_file})
     set_target_properties(${target_name} PROPERTIES 
         CUDA_ARCHITECTURES "${CMAKE_CUDA_ARCHITECTURES}"
         CUDA_SEPARABLE_COMPILATION ON)
     target_compile_options(${target_name} PRIVATE $<$<COMPILE_LANGUAGE:CUDA>:--extended-lambda>)
+    
+    # Set output directory to the same directory as the source file
+    get_filename_component(source_dir ${source_file} DIRECTORY)
+    set_target_properties(${target_name} PROPERTIES
+        RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/${source_dir}")
 endfunction()
 
 # Add profiling executables
 
 # AresDB Expand examples
-# NOTE: expand_parrot is temporarily disabled due to complex template issues
-# add_cuda_executable(expand_parrot aresdb_expand/expand_parrot.cu)
-add_cuda_executable(expand_basic aresdb_expand/expand.cu)
+add_cuda_executable(expand_thrust_cu aresdb_expand/expand.cu)
+add_cuda_executable(expand_parrot_cu aresdb_expand/expand_parrot.cu)
 
 # Outer Sum examples
-add_cuda_executable(outer_sum_basic outer_sum/outer_sum.cu)
-add_cuda_executable(outer_sum_thrust outer_sum/outer_sum_thrust.cu)
+add_cuda_executable(outer_sum_basic_cu outer_sum/outer_sum.cu)
+add_cuda_executable(outer_sum_thrust_cu outer_sum/outer_sum_thrust.cu)
 
 # Paddle Mode examples  
-add_cuda_executable(paddle_mode_basic paddle_mode/paddle_paddle_mode.cu)
-add_cuda_executable(parrot_mode paddle_mode/parrot_mode.cu)
+add_cuda_executable(paddle_mode_basic_cu paddle_mode/paddle_paddle_mode.cu)
+add_cuda_executable(parrot_mode_cu paddle_mode/parrot_mode.cu)
 
 # SF2 example
-add_cuda_executable(sf2_parrot sf2/sf2_parrot_cpp_cu.cu)
+add_cuda_executable(sf2_parrot_cu sf2/sf2_parrot_cpp_cu.cu)
 
 # Print summary of targets
 message(STATUS "Configured profiling targets:")
-message(STATUS "  - expand_basic: Basic expand implementation")
-message(STATUS "  - outer_sum_basic: Basic outer sum implementation")
-message(STATUS "  - outer_sum_thrust: Thrust-based outer sum implementation")
-message(STATUS "  - paddle_mode_basic: PaddlePaddle mode computation")
-message(STATUS "  - parrot_mode: Parrot-based mode computation")
-message(STATUS "  - sf2_parrot: Sushi For Two problem using parrot")
+message(STATUS "  - expand_thrust_cu: AresDB expand with Thrust implementation")
+message(STATUS "  - expand_parrot_cu: AresDB expand with Parrot implementation")
+message(STATUS "  - outer_sum_basic_cu: Basic outer sum implementation")
+message(STATUS "  - outer_sum_thrust_cu: Thrust-based outer sum implementation")
+message(STATUS "  - paddle_mode_basic_cu: PaddlePaddle mode computation")
+message(STATUS "  - parrot_mode_cu: Parrot-based mode computation")
+message(STATUS "  - sf2_parrot_cu: Sushi For Two problem using parrot")
 
 # Use all cores for fast building (per BUILDING.md instruction)
 include(ProcessorCount)

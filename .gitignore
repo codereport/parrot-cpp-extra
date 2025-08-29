@@ -1,1 +1,3 @@
 profiling/build/
+*_cu
+nsys_results/
