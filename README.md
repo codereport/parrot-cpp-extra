@@ -1,4 +1,4 @@
-# Internal Development Tools and Data
+# Development Tools and Data
 
 This directory contains development artifacts, profiling data, and internal tools that support the development and validation of the Parrot library.
 
