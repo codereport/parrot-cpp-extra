@@ -13,7 +13,7 @@ include(FetchContent)
 FetchContent_Declare(
   parrot
   GIT_REPOSITORY https://github.com/NVlabs/parrot.git
-  GIT_TAG main  # You can specify a specific tag/commit if needed
+  GIT_TAG main
   GIT_SHALLOW TRUE
 )
 
@@ -190,6 +190,14 @@ add_cuda_executable(parrot_mode_cu paddle_mode/parrot_mode.cu)
 # SF2 example
 add_cuda_executable(sf2_parrot_cu sf2/sf2_parrot_cpp_cu.cu)
 
+# Softmax examples
+add_cuda_executable(softmax_parrot_cu softmax/softmax.cu)
+add_cuda_executable(softmax_thrust_cu softmax/softmax_thrust.cu)
+
+# Softmax 100 examples  
+add_cuda_executable(softmax_100_parrot_cu softmax_100/softmax.cu)
+add_cuda_executable(softmax_100_thrust_cu softmax_100/softmax_thrust.cu)
+
 # Print summary of targets
 message(STATUS "Configured profiling targets:")
 message(STATUS "  - expand_thrust_cu: AresDB expand with Thrust implementation")
@@ -199,6 +207,10 @@ message(STATUS "  - outer_sum_thrust_cu: Thrust-based outer sum implementation")
 message(STATUS "  - paddle_mode_basic_cu: PaddlePaddle mode computation")
 message(STATUS "  - parrot_mode_cu: Parrot-based mode computation")
 message(STATUS "  - sf2_parrot_cu: Sushi For Two problem using parrot")
+message(STATUS "  - softmax_parrot_cu: Softmax with Parrot implementation")
+message(STATUS "  - softmax_thrust_cu: Softmax with Thrust implementation")
+message(STATUS "  - softmax_100_parrot_cu: Softmax 100 with Parrot implementation")
+message(STATUS "  - softmax_100_thrust_cu: Softmax 100 with Thrust implementation")
 
 # Use all cores for fast building (per BUILDING.md instruction)
 include(ProcessorCount)
