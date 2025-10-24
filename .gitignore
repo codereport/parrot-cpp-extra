@@ -1,2 +1,4 @@
 profiling/build/
 nsys_results/
+*.html
+*_cu
