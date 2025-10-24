@@ -195,8 +195,8 @@ add_cuda_executable(softmax_parrot_cu softmax/softmax.cu)
 add_cuda_executable(softmax_thrust_cu softmax/softmax_thrust.cu)
 
 # Softmax 100 examples  
-add_cuda_executable(softmax_100_parrot_cu softmax_100/softmax.cu)
-add_cuda_executable(softmax_100_thrust_cu softmax_100/softmax_thrust.cu)
+add_cuda_executable(softmax_100_parrot_cu softmax_100/parrot.cu)
+add_cuda_executable(softmax_100_thrust_cu softmax_100/thrust.cu)
 
 # Print summary of targets
 message(STATUS "Configured profiling targets:")
