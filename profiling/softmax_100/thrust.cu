@@ -151,7 +151,7 @@ int main() {
   thrust::device_vector<float> d_input = h_input;
 
   // Step 1: Find row-wise maximum
-  thrust::device_vector<float> d_row_max(rows);
+  thrust::device_vector<float> d_row_max(rows, thrust::default_init);
   segmented_max(d_input, d_row_max, rows, cols);
 
   // Step 2: Create transform_iterator for exp(input - row_max) computation
@@ -162,7 +162,7 @@ int main() {
 
   // Step 3: Compute row-wise sum of exponentials directly from
   // transform_iterator
-  thrust::device_vector<float> d_den(rows);
+  thrust::device_vector<float> d_den(rows, thrust::default_init);
   segmented_sum_from_iterator(exp_minus_max_iterator, d_den, rows, cols);
 
   // Step 4: Create fully fused softmax transform_iterator
@@ -173,7 +173,7 @@ int main() {
                             thrust::raw_pointer_cast(d_den.data()), cols));
 
   // Materialize final result on device, then copy to host
-  thrust::device_vector<float> d_result(size);
+  thrust::device_vector<float> d_result(size, thrust::default_init);
   thrust::copy(softmax_iterator, softmax_iterator + size, d_result.begin());
   thrust::host_vector<float> h_result = d_result;
 
