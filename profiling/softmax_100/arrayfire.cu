@@ -7,7 +7,7 @@ int main() {
 
   // Create input: [0..9999] reshaped to 100x100 (column-major layout)
   auto m = af::moddims(af::iota(af::dim4(10000)), af::dim4(100, 100));
-  
+
   // Softmax along columns: exp(x - max) / sum(exp(x - max))
   auto exp_shifted = af::exp(m - af::tile(af::max(m, 0), 100));
   auto result = exp_shifted / af::tile(af::sum(exp_shifted, 0), 100);
