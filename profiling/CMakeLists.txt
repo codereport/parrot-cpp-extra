@@ -198,6 +198,16 @@ add_cuda_executable(softmax_thrust_cu softmax/softmax_thrust.cu)
 add_cuda_executable(parrot_cu softmax_100/parrot.cu)
 add_cuda_executable(thrust_cu softmax_100/thrust.cu)
 
+# ArrayFire example for softmax_100
+add_executable(arrayfire_cu softmax_100/arrayfire.cu)
+set_target_properties(arrayfire_cu PROPERTIES 
+    CUDA_ARCHITECTURES "${CMAKE_CUDA_ARCHITECTURES}"
+    CUDA_SEPARABLE_COMPILATION ON
+    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/softmax_100")
+target_compile_options(arrayfire_cu PRIVATE $<$<COMPILE_LANGUAGE:CUDA>:--extended-lambda>)
+# Link to ArrayFire CUDA backend from official repository (v3.9)
+target_link_libraries(arrayfire_cu PRIVATE afcuda)
+
 # Print summary of targets
 message(STATUS "Configured profiling targets:")
 message(STATUS "  - expand_thrust_cu: AresDB expand with Thrust implementation")
@@ -211,6 +221,7 @@ message(STATUS "  - softmax_parrot_cu: Softmax with Parrot implementation")
 message(STATUS "  - softmax_thrust_cu: Softmax with Thrust implementation")
 message(STATUS "  - softmax_100_parrot_cu: Softmax 100 with Parrot implementation")
 message(STATUS "  - softmax_100_thrust_cu: Softmax 100 with Thrust implementation")
+message(STATUS "  - arrayfire_cu: Softmax 100 with ArrayFire implementation")
 
 # Use all cores for fast building (per BUILDING.md instruction)
 include(ProcessorCount)
