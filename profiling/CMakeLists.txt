@@ -198,6 +198,10 @@ add_cuda_executable(softmax_thrust_cu softmax/softmax_thrust.cu)
 add_cuda_executable(parrot_cu softmax_100/parrot.cu)
 add_cuda_executable(thrust_cu softmax_100/thrust.cu)
 
+# Check order example
+add_cuda_executable(check_order_parrot_cu check_order/parrot.cu)
+add_cuda_executable(check_order_thrust_cu check_order/thrust.cu)
+
 # ArrayFire example for softmax_100
 add_executable(arrayfire_cu softmax_100/arrayfire.cu)
 set_target_properties(arrayfire_cu PROPERTIES 
