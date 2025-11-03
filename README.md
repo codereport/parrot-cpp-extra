@@ -1,4 +1,4 @@
-# Development Tools and Data
+# Profiling and Flowcharts
 
 This directory contains profiling examples and flowchart scripts for the [Parrot](https://github.com/NVlabs/parrot) library.
 
