@@ -1,6 +1,6 @@
-# Profiling and Flowcharts
+# ⚡️ Profiling and 📊 Flowcharts
 
-This directory contains profiling examples and flowchart scripts for the [Parrot](https://github.com/NVlabs/parrot) library.
+This directory contains profiling examples and flowchart scripts for the 🦜 [Parrot](https://github.com/NVlabs/parrot) library.
 
 ## Contents
 
