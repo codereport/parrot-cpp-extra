@@ -32,10 +32,8 @@ thrust::device_vector<int> check_order(thrust::device_vector<int> &ints) {
 
   auto zip_begin = thrust::make_zip_iterator(
       thrust::make_tuple(sorted_ints.begin(), ints.begin()));
-  auto zip_end = thrust::make_zip_iterator(
-      thrust::make_tuple(sorted_ints.end(), ints.end()));
 
-  auto differences_begin = thrust::make_transform_iterator(
+  auto differ_begin = thrust::make_transform_iterator(
       zip_begin, thrust::make_zip_function(thrust::not_equal_to<int>()));
 
   auto counting_begin = thrust::make_transform_iterator(
@@ -44,7 +42,7 @@ thrust::device_vector<int> check_order(thrust::device_vector<int> &ints) {
 
   thrust::device_vector<int> indices(n, thrust::default_init);
   auto indices_end = thrust::copy_if(
-      counting_begin, counting_begin + n, differences_begin, indices.begin(),
+      counting_begin, counting_begin + n, differ_begin, indices.begin(),
       [] __host__ __device__(int x) { return x != 0; });
 
   indices.resize(indices_end - indices.begin());
