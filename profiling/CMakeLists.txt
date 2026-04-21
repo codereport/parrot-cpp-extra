@@ -190,6 +190,9 @@ add_cuda_executable(parrot_mode_cu paddle_mode/parrot_mode.cu)
 # SF2 example
 add_cuda_executable(sf2_parrot_cu sf2/sf2_parrot_cpp_cu.cu)
 
+# RMMMI example
+add_cuda_executable(rmmmi_parrot_cu rmmmi/rmmmi_parrot.cu)
+
 # Softmax examples
 add_cuda_executable(softmax_parrot_cu softmax/softmax.cu)
 add_cuda_executable(softmax_thrust_cu softmax/softmax_thrust.cu)
@@ -201,6 +204,20 @@ add_cuda_executable(thrust_cu softmax_100/thrust.cu)
 # Check order example
 add_cuda_executable(check_order_parrot_cu check_order/parrot.cu)
 add_cuda_executable(check_order_thrust_cu check_order/thrust.cu)
+
+# Max abs diff examples
+add_cuda_executable(mad_parrot_cu max_abs_diff/mad_parrot.cu)
+add_cuda_executable(mad_thrust_cu max_abs_diff/mad_thrust.cu)
+
+# Max abs diff 2 examples (fixed input from mad_data.bin)
+add_cuda_executable(mad2_parrot_cu max_abs_diff2/mad_parrot.cu)
+add_cuda_executable(mad2_thrust_cu max_abs_diff2/mad_thrust.cu)
+add_cuda_executable(mad2_thrust_expert_cu max_abs_diff2/mad_thrust_expert.cu)
+
+# Pack bits examples
+add_cuda_executable(pack_bits_raw_cuda_cu pack_bits/raw_cuda_kernel.cu)
+add_cuda_executable(pack_bits_cub_thrust_cu pack_bits/thrust.cu)
+add_cuda_executable(pack_bits_parrot_cu pack_bits/parrot.cu)
 
 # ArrayFire example for softmax_100
 add_executable(arrayfire_cu softmax_100/arrayfire.cu)
